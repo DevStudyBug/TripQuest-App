@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Admin Feed</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-spinner *ngIf="isLoading" class="center-spinner"></ion-spinner>
+
+  <ion-list *ngIf="!isLoading && trips.length > 0">
+    <ion-card *ngFor="let trip of trips">
+      <img [src]="trip.images || 'assets/default-trip.jpg'" />
+      <ion-card-header>
+        <ion-card-title>{{ trip.title }}</ion-card-title>
+        <ion-card-subtitle>{{ trip.destination }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ trip.caption }}</p>
+        <ion-badge color="success">APPROVED</ion-badge>
+        <ion-badge color="warning" *ngIf="trip.isFeatured === 'true'">⭐ Featured</ion-badge>
+      </ion-card-content>
+      <ion-footer class="ion-text-end ion-padding">
+        <ion-button fill="solid" color="primary" size="small" (click)="confirmAction(trip)">
+          Take Action
+        </ion-button>
+      </ion-footer>
+    </ion-card>
+  </ion-list>
+
+  <ion-text color="medium" *ngIf="!isLoading && trips.length === 0">
+    <p class="ion-text-center ion-margin-top">No approved trips found.</p>
+  </ion-text>
+</ion-content>

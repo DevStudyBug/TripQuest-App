@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid *ngIf="!isLoading && stats">
+    <ion-row>
+      <ion-col size="12" size-md="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Total Trips</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{ stats.totalTrips || 0 }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Featured Trips</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{ stats.featuredTrips || 0 }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Approved Trips</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{ stats.approvedTrips || 0 }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Pending</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h3>{{ stats.pendingTrips || 0 }}</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Rejected</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h3>{{ stats.rejectedTrips || 0 }}</h3>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Trips by Category</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div style="height:320px;">
+              <canvas #categoryChart></canvas>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-spinner *ngIf="isLoading" class="center-spinner"></ion-spinner>
+</ion-content>

@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Admin Dashboard</ion-title>
+   
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="loadDashboard()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-spinner *ngIf="isLoading" class="center-spinner"></ion-spinner>
+
+  <!-- Pending Trips -->
+  <ion-card *ngIf="!isLoading && pendingTrips.length > 0">
+    <ion-card-header>
+      <ion-card-title color="warning">Pending Trips</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let trip of pendingTrips">
+        <ion-thumbnail slot="start">
+          <img [src]="trip.images || 'assets/default-trip.jpg'" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ trip.title }}</h2>
+          <p>{{ trip.destination }}</p>
+          <p>{{ trip.startDate }} → {{ trip.endDate }}</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button color="success" (click)="confirmAction(trip.id!, 'approve')">Approve</ion-button>
+          <ion-button color="danger" (click)="confirmAction(trip.id!, 'reject')">Reject</ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- Approved Trips -->
+  <ion-card *ngIf="!isLoading && approvedTrips.length > 0">
+    <ion-card-header>
+      <ion-card-title color="success">Approved Trips</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let trip of approvedTrips">
+        <ion-thumbnail slot="start">
+          <img [src]="trip.images || 'assets/default-trip.jpg'" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ trip.title }}</h2>
+          <p>{{ trip.destination }}</p>
+          <ion-badge color="success">APPROVED</ion-badge>
+          <ion-badge color="warning" *ngIf="trip.isFeatured === 'true'">⭐ Featured</ion-badge>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button color="warning" (click)="confirmFeature(trip)">
+            {{ trip.isFeatured === 'true' ? 'Unfeature' : 'Feature' }}
+          </ion-button>
+          <ion-button color="danger" (click)="confirmAction(trip.id!, 'reject')">Reject</ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+ <!-- Rejected Trips -->
+<ion-card *ngIf="!isLoading && rejectedTrips.length > 0">
+  <ion-card-header>
+    <ion-card-title color="danger">Rejected Trips</ion-card-title>
+  </ion-card-header>
+  <ion-list>
+    <ion-item *ngFor="let trip of rejectedTrips">
+      <ion-thumbnail slot="start">
+        <img [src]="trip.images || 'assets/default-trip.jpg'" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ trip.title }}</h2>
+        <p>{{ trip.destination }}</p>
+        <ion-badge color="danger">REJECTED</ion-badge>
+        <p *ngIf="trip.rejectionReason"><b>Reason:</b> {{ trip.rejectionReason }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="medium" (click)="takeActionOnRejected(trip)">Take Action</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-card>
+
+
+  <ion-text color="medium" *ngIf="!isLoading && pendingTrips.length === 0 && approvedTrips.length === 0 && rejectedTrips.length === 0">
+    <p class="ion-text-center ion-margin-top">No trips available.</p>
+  </ion-text>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Explore Trips</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="loadTrips()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-spinner *ngIf="isLoading" class="center-spinner"></ion-spinner>
+
+  <ion-grid *ngIf="!isLoading">
+    <ion-row>
+      <ion-col size="12" size-md="6" *ngFor="let trip of trips">
+        <ion-card (click)="openTripDetail(trip)">
+          <img [src]="trip.images || 'assets/default-trip.jpg'" alt="Trip Image" />
+
+          <ion-card-header>
+            <ion-card-title>{{ trip.destination }}</ion-card-title>
+            <ion-card-subtitle>{{ trip.title }}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>{{ trip.caption || 'No description available' }}</p>
+            <ion-badge color="success">⭐ {{ trip.rating || 'N/A' }}</ion-badge>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-text color="medium" *ngIf="!isLoading && trips.length === 0">
+    <p class="ion-text-center ion-margin-top">No trips available yet.</p>
+  </ion-text>
+</ion-content>

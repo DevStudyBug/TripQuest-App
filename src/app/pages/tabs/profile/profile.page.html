@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-spinner *ngIf="isLoading" class="center-spinner"></ion-spinner>
+
+  <ion-card *ngIf="!isLoading">
+    <ion-card-header>
+      <ion-card-title>User Details</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input [(ngModel)]="user.username" [readonly]="!isEditing"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input [(ngModel)]="user.email" [readonly]="!isEditing"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Role</ion-label>
+        <ion-input [value]="user.role" readonly></ion-input>
+      </ion-item>
+
+      <div class="ion-text-center ion-margin-top">
+        <ion-button *ngIf="!isEditing" (click)="enableEdit()" color="primary">
+          Edit Profile
+        </ion-button>
+        <ion-button *ngIf="isEditing" (click)="saveChanges()" color="success">
+          Save Changes
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-button color="medium" fill="outline" (click)="confirmLogout()">Logout</ion-button>
+  </div>
+</ion-content>

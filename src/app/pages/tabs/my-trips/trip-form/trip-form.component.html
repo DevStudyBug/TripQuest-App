@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ trip ? 'Edit Trip' : 'Add Trip' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Title</ion-label>
+    <ion-input [(ngModel)]="formData.title"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Destination</ion-label>
+    <ion-input [(ngModel)]="formData.destination"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Caption</ion-label>
+    <ion-textarea [(ngModel)]="formData.caption"></ion-textarea>
+  </ion-item>
+
+  <!-- ✅ Start Date Picker (now allows past & future dates) -->
+  <ion-item>
+    <ion-label>Start Date</ion-label>
+    <ion-datetime-button datetime="startDatePicker"></ion-datetime-button>
+  </ion-item>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime
+        id="startDatePicker"
+        [(ngModel)]="formData.startDate"
+        presentation="date"
+        showDefaultButtons="true"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <!-- ✅ End Date Picker -->
+  <ion-item>
+    <ion-label>End Date</ion-label>
+    <ion-datetime-button datetime="endDatePicker"></ion-datetime-button>
+  </ion-item>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime
+        id="endDatePicker"
+        [(ngModel)]="formData.endDate"
+        [min]="formData.startDate"
+        presentation="date"
+        showDefaultButtons="true"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <ion-item>
+    <ion-label position="floating">Rating</ion-label>
+    <ion-input type="number" [(ngModel)]="formData.rating"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Image URL</ion-label>
+    <ion-input [(ngModel)]="formData.images"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Highlights</ion-label>
+    <ion-textarea [(ngModel)]="formData.highlights"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Tips</ion-label>
+    <ion-textarea [(ngModel)]="formData.tips"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" color="primary" (click)="save()" class="ion-margin-top">
+    {{ trip ? 'Update Trip' : 'Add Trip' }}
+  </ion-button>
+</ion-content>

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Edit Destination</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input placeholder="Name" [(ngModel)]="destination.name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input placeholder="Country" [(ngModel)]="destination.country"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input placeholder="Category" [(ngModel)]="destination.category"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-textarea placeholder="Description" [(ngModel)]="destination.description"></ion-textarea>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>Latitude: {{ destination.lat || 'N/A' }}</ion-label>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>Longitude: {{ destination.lng || 'N/A' }}</ion-label>
+  </ion-item>
+
+  <ion-button expand="block" color="medium" (click)="grabLocation()">
+    📍 Capture Current Location
+  </ion-button>
+
+  <!-- 🗺️ Map Preview -->
+  <div id="map" style="height: 250px; margin-top: 12px; border-radius: 10px; overflow: hidden;"></div>
+
+  <ion-button expand="block" color="success" (click)="saveChanges()">
+    💾 Save Changes
+  </ion-button>
+</ion-content>

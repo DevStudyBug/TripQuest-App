@@ -1,0 +1,25 @@
+.center-spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+ion-card-title {
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+
+ion-thumbnail img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+ion-button {
+  margin-left: 4px;
+}
+
+ion-card {
+  margin-bottom: 15px;
+}

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Community Feed</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- 🔄 Pull-to-Refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="refreshFeed($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- ⏳ Loading Spinner -->
+  <ion-spinner *ngIf="isLoading" class="center-spinner" name="crescent"></ion-spinner>
+
+  <!-- 🧳 Trips List -->
+  <ion-list *ngIf="!isLoading && trips.length > 0">
+    <ion-card *ngFor="let trip of trips">
+      <img [src]="trip.images || 'assets/default-trip.jpg'" alt="Trip Image" />
+
+      <ion-card-header>
+        <ion-card-title>{{ trip.title }}</ion-card-title>
+        <ion-card-subtitle>
+          {{ trip.destination }} • {{ trip.startDate }} → {{ trip.endDate }}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>{{ trip.caption }}</p>
+
+        <div class="ion-margin-top">
+          <ion-badge color="success">⭐ {{ trip.rating || 'N/A' }}</ion-badge>
+          <ion-badge color="warning" *ngIf="trip.isFeatured === 'true'">
+            🌟 Featured
+          </ion-badge>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <!-- 🧭 No Trips Message -->
+  <ion-text color="medium" *ngIf="!isLoading && trips.length === 0">
+    <p class="ion-text-center ion-margin-top">
+      No trips in the feed yet. Be the first to share your journey!
+    </p>
+  </ion-text>
+</ion-content>

@@ -1,0 +1,18 @@
+.center-spinner {
+  display: block;
+  margin: 80px auto;
+}
+
+ion-card {
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  h2, h3 {
+    margin: 0;
+    font-weight: 700;
+  }
+}
+
+ion-card-title {
+  font-size: 0.95rem;
+  color: var(--ion-color-medium);
+}

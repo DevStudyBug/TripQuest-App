@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="login()" autocomplete="off">
+    <ion-item>
+      <ion-input
+        [(ngModel)]="username"
+        name="username"
+        label="Username"
+        labelPlacement="floating"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        [(ngModel)]="password"
+        name="password"
+        type="password"
+        label="Password"
+        labelPlacement="floating"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      color="primary"
+      [disabled]="isLoading"
+    >
+      <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+      <span *ngIf="!isLoading">Login</span>
+    </ion-button>
+
+    <ion-text color="medium">
+      <p class="ion-text-center ion-margin-top">
+        Don’t have an account?
+        <b (click)="goToRegister()" style="cursor:pointer;color:var(--ion-color-primary)">
+          Register here
+        </b>
+      </p>
+    </ion-text>
+  </form>
+</ion-content>

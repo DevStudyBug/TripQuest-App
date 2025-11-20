@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Manage Destinations</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Add New Destination</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-input placeholder="Name" [(ngModel)]="newDestination.name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Country" [(ngModel)]="newDestination.country"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select placeholder="Select Category" [(ngModel)]="newDestination.category">
+          <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea placeholder="Description" [(ngModel)]="newDestination.description"></ion-textarea>
+      </ion-item>
+
+      <!-- 📍 Location Section -->
+      <ion-item lines="none">
+        <ion-label>Latitude: {{ newDestination.lat || 'N/A' }}</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Longitude: {{ newDestination.lng || 'N/A' }}</ion-label>
+      </ion-item>
+
+      <ion-button expand="block" color="medium" (click)="grabLocation()">
+        📍 Capture Current Location
+      </ion-button>
+
+      <ion-button expand="block" color="success" (click)="addDestination()">
+        ➕ Add Destination
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Destination List -->
+<ion-list *ngIf="destinations.length > 0">
+  <ion-item-sliding #slidingItem *ngFor="let dest of destinations">
+    <ion-item>
+      <ion-label>
+        <h2>{{ dest.name }}</h2>
+        <p>{{ dest.country }} • {{ dest.category }}</p>
+        <small *ngIf="dest.lat && dest.lng">
+          🌍 <a target="_blank" href="https://maps.google.com/?q={{ dest.lat }},{{ dest.lng }}">
+            View on Map
+          </a>
+        </small>
+      </ion-label>
+    </ion-item>
+
+    <!-- Slider options -->
+    <ion-item-options side="end">
+      <ion-item-option color="warning" (click)="openEditModal(dest, slidingItem)">
+        ✏️ Edit
+      </ion-item-option>
+      <ion-item-option color="danger" (click)="confirmDelete(dest.id, slidingItem)">
+        🗑️ Delete
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+
+<ion-text color="medium" *ngIf="!destinations.length">
+  <p class="ion-text-center ion-margin-top">No destinations added yet.</p>
+</ion-text>
+
+
+</ion-content>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ trip.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <img [src]="trip.images || 'assets/default-trip.jpg'" alt="Trip Image" class="trip-img" />
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ trip.destination }}</ion-card-title>
+      <ion-card-subtitle>{{ trip.startDate }} → {{ trip.endDate }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><b>Caption:</b> {{ trip.caption }}</p>
+      <p><b>Highlights:</b> {{ trip.highlights || 'No highlights available' }}</p>
+      <p><b>Tips:</b> {{ trip.tips || 'No tips available' }}</p>
+      <ion-badge color="success">Rating: {{ trip.rating || 'N/A' }}</ion-badge>
+      <ion-badge color="medium">Status: {{ trip.status }}</ion-badge>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="primary" (click)="planSimilarTrip()">
+    Plan Similar Trip
+  </ion-button>
+</ion-content>

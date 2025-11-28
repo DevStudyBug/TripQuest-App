@@ -17,7 +17,7 @@ const config: CapacitorConfig = {
   webDir: 'www',
   plugins: {
     GoogleMaps: {
-      key: 'AIzaSyB0QMpsgHjavlbzJshLAHRVrzDHZ6p7DlM', // replace after regenerating/restricting
+      key: '', // replace after regenerating/restricting
     },
   },
 };
